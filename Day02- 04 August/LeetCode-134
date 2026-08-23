@@ -1,0 +1,18 @@
+class Solution:
+    def canCompleteCircuit(self, gas, cost):
+        # Total gas kam hai to complete circuit impossible
+        if sum(gas) < sum(cost):
+            return -1
+
+        start = 0
+        tank = 0
+
+        for i in range(len(gas)):
+            tank += gas[i] - cost[i]
+
+            # Current start se aage nahi ja sakte
+            if tank < 0:
+                start = i + 1
+                tank = 0
+
+        return start
