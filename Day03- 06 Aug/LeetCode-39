@@ -1,0 +1,27 @@
+class Solution:
+    def combinationSum(self, candidates, target):
+        result = []
+
+        def backtrack(start, current, total):
+            # Target mil gaya
+            if total == target:
+                result.append(current[:])
+                return
+
+            # Target cross ho gaya
+            if total > target:
+                return
+
+            for i in range(start, len(candidates)):
+                current.append(candidates[i])
+
+                # i hi pass kar rahe hain
+                # because same number reuse kar sakte hain
+                backtrack(i, current, total + candidates[i])
+
+                # Backtrack
+                current.pop()
+
+        backtrack(0, [], 0)
+
+        return result
