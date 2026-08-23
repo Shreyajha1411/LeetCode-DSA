@@ -1,18 +1,38 @@
 class Solution:
-    def canCompleteCircuit(self, gas, cost):
-        # Total gas kam hai to complete circuit impossible
-        if sum(gas) < sum(cost):
-            return -1
+    def spiralOrder(self, matrix):
+        result = []
 
-        start = 0
-        tank = 0
+        top = 0
+        bottom = len(matrix) - 1
+        left = 0
+        right = len(matrix[0]) - 1
 
-        for i in range(len(gas)):
-            tank += gas[i] - cost[i]
+        while top <= bottom and left <= right:
 
-            # Current start se aage nahi ja sakte
-            if tank < 0:
-                start = i + 1
-                tank = 0
+            # Left → Right
+            for j in range(left, right + 1):
+                result.append(matrix[top][j])
 
-        return start
+            top += 1
+
+            # Top → Bottom
+            for i in range(top, bottom + 1):
+                result.append(matrix[i][right])
+
+            right -= 1
+
+            # Right → Left
+            if top <= bottom:
+                for j in range(right, left - 1, -1):
+                    result.append(matrix[bottom][j])
+
+                bottom -= 1
+
+            # Bottom → Top
+            if left <= right:
+                for i in range(bottom, top - 1, -1):
+                    result.append(matrix[i][left])
+
+                left += 1
+
+        return result
