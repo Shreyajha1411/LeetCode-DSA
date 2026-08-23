@@ -1,0 +1,21 @@
+class Solution:
+    def subsets(self, nums):
+        result = []
+
+        def backtrack(index, current):
+            # Current subset ko answer mein add karo
+            result.append(current[:])
+
+            for i in range(index, len(nums)):
+                # Element choose karo
+                current.append(nums[i])
+
+                # Next elements ke liye recursion
+                backtrack(i + 1, current)
+
+                # Backtrack
+                current.pop()
+
+        backtrack(0, [])
+
+        return result
