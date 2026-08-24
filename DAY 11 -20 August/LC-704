@@ -1,0 +1,22 @@
+class Solution:
+    def search(self, nums: list[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        
+        while left <= right:
+            # Calculate the midpoint. 
+            # (left + right) // 2 works in Python due to arbitrary precision integers,
+            # but left + (right - left) // 2 prevents integer overflow in Java/C++.
+            mid = left + (right - left) // 2
+            
+            # Case 1: Target found
+            if nums[mid] == target:
+                return mid
+            # Case 2: Target is larger, discard the left half
+            elif nums[mid] < target:
+                left = mid + 1
+            # Case 3: Target is smaller, discard the right half
+            else:
+                right = mid - 1
+                
+        # Target does not exist in the array
+        return -1
