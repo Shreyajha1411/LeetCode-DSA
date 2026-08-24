@@ -1,0 +1,27 @@
+class Solution:
+    def shiftGrid(self, grid: list[list[int]], k: int) -> list[list[int]]:
+        m, n = len(grid), len(grid[0])
+        total_elements = m * n
+        
+        # Optimize shifts if k is larger than the total number of elements
+        k = k % total_elements
+        
+        # Initialize an empty target grid of the exact same dimensions
+        result = [[0] * n for _ in range(m)]
+        
+        for r in range(m):
+            for c in range(n):
+                # Step 1: Map 2D coordinate (r, c) to a flat 1D index
+                flat_index = r * n + c
+                
+                # Step 2: Calculate the new shifted 1D index with wrap-around
+                new_flat_index = (flat_index + k) % total_elements
+                
+                # Step 3: Convert the flat 1D index back to 2D coordinates
+                new_r = new_flat_index // n
+                new_c = new_flat_index % n
+                
+                # Place the original value into its new home
+                result[new_r][new_c] = grid[r][c]
+                
+        return result
