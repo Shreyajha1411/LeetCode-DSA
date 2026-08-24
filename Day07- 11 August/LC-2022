@@ -1,0 +1,8 @@
+class Solution:
+    def construct2DArray(self, original: list[int], m: int, n: int) -> list[list[int]]:
+        # Condition check: If size doesn't match exactly, construction is impossible
+        if len(original) != m * n:
+            return []
+        
+        # Step through original array by row-length steps and slice chunks
+        return [original[i : i + n] for i in range(0, len(original), n)]
