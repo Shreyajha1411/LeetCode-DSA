@@ -1,0 +1,7 @@
+class Solution:
+    def kidsWithCandies(self, candies: list[int], extraCandies: int) -> list[bool]:
+        # Step 1: Find the current maximum candies any kid has
+        max_candies = max(candies)
+        
+        # Step 2: Check if adding extraCandies meets or exceeds that maximum
+        return [kid_candies + extraCandies >= max_candies for kid_candies in candies]
