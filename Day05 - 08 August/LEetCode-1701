@@ -1,0 +1,19 @@
+class Solution:
+    def averageWaitingTime(self, customers: list[list[int]]) -> float:
+        total_wait_time = 0
+        current_time = 0
+        
+        for arrival, cook_time in customers:
+            # Chef can only start when the customer arrives OR when the chef becomes free
+            start_time = max(current_time, arrival)
+            
+            # The exact clock time when this specific order finishes
+            end_time = start_time + cook_time
+            
+            # Waiting time = complete time - exact arrival time
+            total_wait_time += (end_time - arrival)
+            
+            # Update the chef's schedule for the next customer
+            current_time = end_time
+            
+        return total_wait_time / len(customers)
